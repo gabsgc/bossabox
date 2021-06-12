@@ -1,0 +1,17 @@
+{% for tool in tool_list %}
+<div class="col-7">
+    <ul class="list-group mt-4">
+        <li class="list-group-item mb-1 border">
+            <a href={{tool.link}} target="_blank">
+                {{tool.name}}
+            </a>
+            <p class="text-justify">
+                {{tool.description}}
+            </p>
+            <span>
+                {{tool.tag}}
+            </span>
+        </li>
+    </ul>
+</div>
+{% endfor %}
