@@ -4,7 +4,7 @@ class Tool:
         self._name = name
         self._link = link
         self._description = description
-        self._tags = tags_list
+        self._tag = tags_list
     
     @property
     def id(self):
@@ -40,8 +40,17 @@ class Tool:
     
     @property
     def tag(self):
-        return self._tags
+        return self._tag
     
     @tag.setter
     def tag(self, value):
-        self._tags = value
+        self._tag = value
+
+    def toDict(self):
+        return{
+            'id': self.id,
+            'name': self.name,
+            'link': self.link,
+            'description': self.description,
+            'tag': self.tag
+        }
