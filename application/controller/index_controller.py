@@ -15,11 +15,11 @@ def listatool():
 
 @app.route('/inserir', methods=['POST'])
 def inserir():
-    name = request.form.get('name')
-    link = request.form.get('link')
-    description = request.form.get('description')
-    tag = request.form.get('tag')
     id = len(tool_list) + 1
+    name = request.form.get("name", None)
+    link = request.form.get("link", None)
+    description = request.form.get("description", None)
+    tag = request.form.get("tag", None)
     tool = Tool(id, name, link, description, tag)
     ToolDAO().inserir(tool)
     tool_list.append(tool)
@@ -28,7 +28,25 @@ def inserir():
 @app.route("/excluir/<int:id>", methods=['DELETE'])
 def excluir(id: int):
     for tool in tool_list:
-        if tool._id == id:
+        if id == tool._id:
             tool_list.remove(tool)
             return render_template("tool.html", tool_list = tool_list)
     return render_template("tool.html", tool_list = tool_list), 404
+
+@app.route("/busca", methods=['GET'])
+def busca():
+    tool_list_pesquisa = []
+    search = request.args.get('search')
+    for tool in tool_list:
+        if search in tool._name or search in tool._description:
+            tool_list_pesquisa.append(tool)
+    return render_template("tool.html", tool_list = tool_list_pesquisa)
+
+@app.route("/buscar", methods=['GET'])
+def buscarTag():
+    tool_list_tag = []
+    search_tag = request.args.get('search-tag')
+    for tool in tool_list:
+        if search_tag.find(tool._tag):
+            tool_list_tag.append(tool)
+    return render_template("tool.html", tool_list= tool_list_tag)

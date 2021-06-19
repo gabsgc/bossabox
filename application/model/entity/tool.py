@@ -1,10 +1,10 @@
 class Tool:
-    def __init__(self, id:int, name: str, link: str, description: str, tags_list: str):
+    def __init__(self, id:int, name: str, link: str, description: str, tag: str):
         self._id = id
         self._name = name
         self._link = link
         self._description = description
-        self._tag = tags_list
+        self._tag = tag
     
     @property
     def id(self):
@@ -48,9 +48,9 @@ class Tool:
 
     def toDict(self):
         return{
-            'id': self.id,
-            'name': self.name,
-            'link': self.link,
-            'description': self.description,
-            'tag': self.tag
+            "id": self._id,
+            "name": self._name,
+            "link": self._link,
+            "description": self._description,
+            "tag": self._tag
         }
