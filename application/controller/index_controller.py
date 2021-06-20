@@ -29,6 +29,7 @@ def inserir():
 def excluir(id: int):
     for tool in tool_list:
         if id == tool._id:
+            ToolDAO().excluir(tool, tool._id)
             tool_list.remove(tool)
             return render_template("tool.html", tool_list = tool_list)
     return render_template("tool.html", tool_list = tool_list), 404
@@ -42,11 +43,13 @@ def busca():
             tool_list_pesquisa.append(tool)
     return render_template("tool.html", tool_list = tool_list_pesquisa)
 
+
 @app.route("/buscar", methods=['GET'])
-def buscarTag():
+def buscar():
     tool_list_tag = []
-    search_tag = request.args.get('search-tag')
+    search_tag = request.args.get('search')
     for tool in tool_list:
-        if search_tag.find(tool._tag):
+        tag = tool._tag.replace('#', '')
+        if search_tag == tag:
             tool_list_tag.append(tool)
     return render_template("tool.html", tool_list= tool_list_tag)
