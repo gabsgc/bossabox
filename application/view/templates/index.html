@@ -24,13 +24,13 @@
         <p class="text-center">Very Useful Tools to Remember</p>
 
         <div class="d-flex flex-wrap align-content-center">
-            <div class="col col-lg-5">
-                <form action="{{url_for('busca')}}" method="GET" enctype="application/x-www-form-urlencoded" onsubmit="return buscar()">
-                <input type="text" id="tool-search" name="search" placeholder="Search">
-                <input type="checkbox" name="search-tag" id="search-tag" class="form-check-input">
-                <label for="search-tag">search in tags only</label>
+            <div>
+                <form action="{{url_for('buscar')}}" method="GET" enctype="application/x-www-form-urlencoded" onsubmit="return buscar()">
+                <input type="text" id="tool-search" name="search" placeholder="Search"> 
+                <input type="checkbox" name="search-tag" id="search-tag" class="form-check-input" value="search-tag">
+                <label for="search-tag">search in tags only</label>     
             </div>
-            <div class="col col-lg-3">
+            <div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                     data-bs-whatever="@mdo">
                     <svg xmlns="SVG namespace" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
@@ -117,7 +117,6 @@
             }
             return false;
         }
-
         function excluir(id) {
             xhr = new XMLHttpRequest();
             xhr.open("DELETE", "/excluir/" + id);
@@ -127,6 +126,7 @@
                     document.getElementById("listar_tools").innerHTML = xhr.response;
                 }
             }
+            document.getElementById('btn-remove').addEventListener('click', excluir, true);
         }
 
         function buscar() {
@@ -143,7 +143,7 @@
         }
 
         function buscarTag() {
-            search_tag = document.getElementById('search-tag').value;
+            search_tag = document.getElementById('tool-search').value;
             xhr = new XMLHttpRequest();
             xhr.open("GET", "/buscar?search-tag=" + search_tag);
             xhr.send(null);
